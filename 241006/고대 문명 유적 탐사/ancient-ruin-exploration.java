@@ -133,7 +133,13 @@ public class Main {
 		for (int t=0; t<K; t++) {
 			maxGet = 0;
 			maxMap = new int[5][5];
+			dir = 3;
 			
+//			System.out.println(t + "----------------------------");
+//			for (int p=0; p<5; p++) {
+//				System.out.println(Arrays.toString(map[p]));
+//			}
+//			System.out.println(t + "----------------------------");
 			for (int j=3; j>0; j--) {
 				for (int i=3; i>0; i--) {
 					for (int k=3; k>0; k--) { // 회전각 270 180 90
@@ -175,13 +181,24 @@ public class Main {
 //						
 						int get = getGold(copy);
 //						
-//						System.out.println("1차획득후================");
+//						System.out.println("1차획득후================" + k);
 //						for (int p=0; p<5; p++) {
 //							System.out.println(Arrays.toString(copy[p]));
 //						}
 						
 						if (get >= maxGet) {
-							if (k <= dir) {
+							if (get == maxGet) {
+								if (k <= dir) {
+									maxGet = get;
+									dir = k;
+									for (int p=0; p<5; p++) {
+										for (int q=0; q<5; q++) {
+											maxMap[p][q] = copy[p][q];
+										}
+									}
+								}
+							}
+							else {
 								maxGet = get;
 								dir = k;
 								//copy -> maxMap으로 복사
