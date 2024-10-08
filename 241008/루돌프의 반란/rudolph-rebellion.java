@@ -280,7 +280,7 @@ public class Main {
 		}
 		else {
 			//상호작용 발생  
-			if (map[sanX][sanY] > 0) {
+			if (map[sanX][sanY] > 0 && map[sanX][sanY] != san) {
 //				System.out.println("상호작용 발생 ");
 				dic = slideSan(san, san_d, d, 1);
 			}
