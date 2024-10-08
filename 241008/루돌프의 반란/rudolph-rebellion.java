@@ -27,7 +27,7 @@ public class Main {
 		int curX = ru[0];
 		int curY = ru[1];
 		
-		for (int i=0; i<=P; i++) {
+		for (int i=1; i<=P; i++) {
 			if (status[i] < 0) {
 				continue;
 			}
