@@ -126,7 +126,7 @@ public class Main {
 				}
 			}
 		}
-		return 0;
+		return N*N;
 	}
 	
 	public static void toHome() {
