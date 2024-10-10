@@ -11,10 +11,8 @@ public class Main {
 	public static int[] receiver;
 	public static Stack<int[]> RList;
 	public static HashMap<String, String> path;
-	public static int[][] laserDirBefore = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-	public static int[][] laserDirAfter;
-	public static int[][] bombDirBefore = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {-1, 1}, {1, 1}, {-1, -1}, {1, -1}};
-	public static int[][] bombDirAfter;
+	public static int[][] laserDir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+	public static int[][] bombDir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}, {-1, 1}, {1, 1}, {-1, -1}, {1, -1}};
 	public static HashMap<String, String> dir;
 	public static boolean[][] damaged;
 	
@@ -140,32 +138,22 @@ public class Main {
 			}
 			
 			for (int i=0; i<4; i++) {
-				int afterX = curX + laserDirBefore[i][0];
-				int afterY = curY + laserDirBefore[i][1];
+				int afterX = curX + laserDir[i][0];
+				int afterY = curY + laserDir[i][1];
 				
-				if (afterX >= 0 && afterX < N && afterY >= 0 && afterY < M) {
-					if (map[afterX][afterY][0] == 0) {
-						continue;
-					}
-					if (!visited[afterX][afterY]) {
-						q.offer(new int[] {afterX, afterY});
-						visited[afterX][afterY] = true;
-						path.put(afterX + " " + afterY, curX + " " + curY);
-					}
-				}
-				//벽 건너편으로 이동 
-				else {
+				if (afterX < 0 | afterX >= N | afterY < 0 | afterY >= M) {
 					int[] arr = getDir(afterX, afterY);
 					afterX = arr[0];
 					afterY = arr[1];
-					if (map[afterX][afterY][0] == 0) {
-						continue;
-					}
-					if (!visited[afterX][afterY]) {
-						q.offer(new int[] {afterX, afterY});
-						visited[afterX][afterY] = true;
-						path.put(afterX + " " + afterY, curX + " " + curY);
-					}
+				}
+				
+				if (map[afterX][afterY][0] == 0) {
+					continue;
+				}
+				if (!visited[afterX][afterY]) {
+					q.offer(new int[] {afterX, afterY});
+					visited[afterX][afterY] = true;
+					path.put(afterX + " " + afterY, curX + " " + curY);
 				}
 			}
 			
@@ -199,35 +187,23 @@ public class Main {
 		RList.add(new int[] {curX, curY});
 		
 		for (int i=0; i<8; i++) {
-			int afterX = curX + bombDirBefore[i][0];
-			int afterY = curY + bombDirBefore[i][1];
+			int afterX = curX + bombDir[i][0];
+			int afterY = curY + bombDir[i][1];
 			
-			if (afterX >= 0 && afterX < N && afterY >= 0 && afterY < M) {
-				if (map[afterX][afterY][0] == 0) {
-					continue;
-				}
-				if (afterX == giver[0] && afterY == giver[1]) {
-					continue;
-				}
-				
-				RList.add(new int[] {afterX, afterY});
-			}
-			else {
+			if (afterX < 0 | afterX >= N | afterY < 0 | afterY >= M) {
 				int[] arr = getDir(afterX, afterY);
 				afterX = arr[0];
 				afterY = arr[1];
-//				System.out.println(curX + " " + curY);
-//				System.out.println(afterX + " " + afterY);
-				if (map[afterX][afterY][0] == 0) {
-					continue;
-				}
-				if (afterX == giver[0] && afterY == giver[1]) {
-					continue;
-				}
-				
-				RList.add(new int[] {afterX, afterY});
-				
 			}
+			
+			if (map[afterX][afterY][0] == 0) {
+				continue;
+			}
+			if (afterX == giver[0] && afterY == giver[1]) {
+				continue;
+			}
+			
+			RList.add(new int[] {afterX, afterY});
 		}
 	}
 	public static void main(String[] args) throws Exception {
@@ -240,9 +216,7 @@ public class Main {
 		K = Integer.parseInt(st.nextToken());
 		
 		map = new int[N][M][2];
-		laserDirAfter = new int[][]{{0, 1-M}, {1-N, 0}, {0, M-1}, {N-1, 0}};
-		bombDirAfter = new int[][]{{0, 1-M}, {1-N, 0}, {0, M-1}, {N-1, 0}, {N-1, 1-M}, {1-N, 1-M}, {N-1, M-1}, {1-N, M-1}};
-		
+
 		for (int i=0; i<N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j=0; j<M; j++) {
