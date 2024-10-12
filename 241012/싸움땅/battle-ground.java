@@ -135,9 +135,9 @@ public class Main {
 		
 		if (existGun(next)) {
 			getGun(win, next);
-			if (win == who) { //이동한 애가 이겼으면 
-				moveOne(win, next);
-			}
+		}
+		if (win == who) { //이동한 애가 이겼으면 
+			moveOne(win, next);
 		}
 	}
 	
