@@ -150,7 +150,7 @@ public class Main {
 //		printMap();
 //		printAirMap();
 		
-		while (Time <= 3) {
+		while (Time <= 100) {
 			for (int i=0; i<airCon.size(); i++) {
 				int[] aircon = airCon.get(i);
 				int x = aircon[0];
